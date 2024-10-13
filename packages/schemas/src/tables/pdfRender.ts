@@ -86,7 +86,7 @@ async function drawTableBorder(
   });
 }
 
-async function drawTable(arg: PDFRenderProps<TableSchema>, table: Table): Promise<void> {
+async function drawTable(arg: PDFRenderProps<TableSchema>, table: Table): Promise<number> {
   const settings = table.settings;
   const startY = settings.startY;
   const margin = settings.margin;
@@ -105,6 +105,7 @@ async function drawTable(arg: PDFRenderProps<TableSchema>, table: Table): Promis
   }
 
   await drawTableBorder(arg, table, startPos, cursor);
+  return  cursor.y
 }
 
 export const pdfRender = async (arg: PDFRenderProps<TableSchema>) => {
@@ -115,5 +116,5 @@ export const pdfRender = async (arg: PDFRenderProps<TableSchema>) => {
     schema.__bodyRange
   );
   const table = await createSingleTable(body, arg);
-  await drawTable(arg, table);
+  return await drawTable(arg, table);
 };

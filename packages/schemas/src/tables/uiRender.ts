@@ -431,4 +431,5 @@ export const uiRender = async (arg: UIRenderProps<TableSchema>) => {
   if (schema.height !== tableHeight && onChange) {
     onChange({ key: 'height', value: tableHeight });
   }
+  return offsetY
 };
