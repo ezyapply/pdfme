@@ -9,7 +9,7 @@ import {
   BlankPdf,
   CommonOptions,
   LegacySchemaPageArray,
-  SchemaPageArray
+  SchemaPageArray,
 } from './types';
 import {
   Inputs as InputsSchema,
@@ -98,7 +98,11 @@ export const migrateTemplate = (template: Template) => {
     return;
   }
 
-  if (Array.isArray(template.schemas) && template.schemas.length > 0 && !Array.isArray(template.schemas[0])) {
+  if (
+    Array.isArray(template.schemas) &&
+    template.schemas.length > 0 &&
+    !Array.isArray(template.schemas[0])
+  ) {
     template.schemas = (template.schemas as unknown as LegacySchemaPageArray).map(
       (page: Record<string, Schema>) =>
         Object.entries(page).map(([key, value]) => ({
@@ -113,8 +117,8 @@ export const getInputFromTemplate = (template: Template): { [key: string]: strin
   migrateTemplate(template);
 
   const input: { [key: string]: string } = {};
-  template.schemas.forEach(page => {
-    page.forEach(schema => {
+  template.schemas.forEach((page) => {
+    page.forEach((schema) => {
       if (!schema.readOnly) {
         input[schema.name] = schema.content || '';
       }
@@ -258,17 +262,17 @@ export const checkUIProps = (data: unknown) => {
     migrateTemplate(data.template as Template);
   }
   checkProps(data, UIPropsSchema);
-}
+};
 export const checkTemplate = (template: unknown) => {
   migrateTemplate(template as Template);
   checkProps(template, TemplateSchema);
-}
+};
 export const checkGenerateProps = (data: unknown) => {
   if (typeof data === 'object' && data !== null && 'template' in data) {
     migrateTemplate(data.template as Template);
   }
   checkProps(data, GeneratePropsSchema);
-}
+};
 
 interface ModifyTemplateForDynamicTableArg {
   template: Template;
@@ -397,6 +401,7 @@ async function createOnePage(
     if (heightsSum !== originalHeight) {
       diffMap.set(position.y + originalHeight, heightsSum - originalHeight);
     }
+    //this causes a table to be separated into multiple rows, with each row its on table node
     heights.forEach((height, index) => {
       let y = schema.position.y + heights.reduce((acc, cur, i) => (i < index ? acc + cur : acc), 0);
       for (const [diffY, diff] of diffMap.entries()) {
@@ -441,6 +446,8 @@ function breakIntoPages(arg: {
         yAdjustments.push({ page: pageIndex, value: (newY - paddingTop) * -1 });
       }
     }
+    //moves the node/child/element back to the starting postiion of where it was at the begining,
+    //meaning there's of space for it to fill
     return newY + (yAdjustments.find((adj) => adj.page === pageIndex)?.value || 0);
   };
 
@@ -470,7 +477,7 @@ function breakIntoPages(arg: {
 
 function createNewTemplate(pages: Node[], basePdf: BlankPdf): Template {
   const newTemplate: Template = {
-    schemas: Array.from({ length: pages.length }, () => ([] as Schema[])),
+    schemas: Array.from({ length: pages.length }, () => [] as Schema[]),
     basePdf: basePdf,
   };
 
@@ -481,7 +488,7 @@ function createNewTemplate(pages: Node[], basePdf: BlankPdf): Template {
       const { schema } = child;
       if (!schema) throw new Error('[@pdfme/common] schema is undefined');
 
-      const name = schema.name
+      const name = schema.name;
       if (!nameToSchemas.has(name)) {
         nameToSchemas.set(name, []);
       }
@@ -511,6 +518,7 @@ function createNewTemplate(pages: Node[], basePdf: BlankPdf): Template {
         schema.__isSplit = start > 0;
 
         const newSchema = Object.assign({}, schema, { position, height });
+        //this ensures only the last of that type of schema is added in the case of things like tables
         const index = newTemplate.schemas[pageIndex].findIndex((s) => s.name === name);
         if (index !== -1) {
           newTemplate.schemas[pageIndex][index] = newSchema;
