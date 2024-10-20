@@ -36,12 +36,7 @@ const generate = async (props: GenerateProps) => {
       options,
       _cache,
       getDynamicHeights: (value, args) => {
-        switch (args.schema.type) {
-          case 'table':
-            return getDynamicHeightsForTable(value, args);
-          default:
-            return Promise.resolve([args.schema.height]);
-        }
+        return getDynamicHeightsForTable(value, args);
       },
     });
     const { basePages, embedPdfBoxes } = await getEmbedPdfPages({

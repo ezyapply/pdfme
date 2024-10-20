@@ -487,7 +487,7 @@ const dictIt: { [key in keyof Dict]: string } = {
   'schemas.table.columnStyle': 'Stile della Colonna',
   'schemas.date.format': 'Formato data',
   'schemas.select.options': 'Opzioni',
-  'schemas.select.optionPlaceholder': 'Inserisci un\'opzione',
+  'schemas.select.optionPlaceholder': "Inserisci un'opzione",
 };
 
 const dictPl: { [key in keyof Dict]: string } = {

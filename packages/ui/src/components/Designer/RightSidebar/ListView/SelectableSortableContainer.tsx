@@ -21,7 +21,7 @@ import { PluginsRegistry } from '../../../../contexts';
 import Item from './Item';
 import SelectableSortableItem from './SelectableSortableItem';
 import { theme } from 'antd';
-import PluginIcon from "../../PluginIcon";
+import PluginIcon from '../../PluginIcon';
 
 const SelectableSortableContainer = (
   props: Pick<
@@ -59,17 +59,25 @@ const SelectableSortableContainer = (
   };
 
   const getPluginIcon = (inSchema: string | SchemaForUI): ReactNode => {
-    const thisSchema = (typeof inSchema === 'string') ? schemas.find((schema) => schema.id === inSchema) : inSchema;
+    const thisSchema =
+      typeof inSchema === 'string' ? schemas.find((schema) => schema.id === inSchema) : inSchema;
 
     const [pluginLabel, activePlugin] = Object.entries(pluginsRegistry).find(
       ([label, plugin]) => plugin?.propPanel.defaultSchema.type === thisSchema?.type
     )!;
 
     if (!activePlugin) {
-      return <></>
+      return <></>;
     }
 
-    return <PluginIcon plugin={activePlugin} label={pluginLabel} size={20} styles={{ marginRight: '0.5rem' }} />
+    return (
+      <PluginIcon
+        plugin={activePlugin}
+        label={pluginLabel}
+        size={20}
+        styles={{ marginRight: '0.5rem' }}
+      />
+    );
   };
 
   return (
@@ -133,8 +141,9 @@ const SelectableSortableContainer = (
                 <SelectableSortableItem
                   key={schema.id}
                   style={{
-                    border: `1px solid ${schema.id === hoveringSchemaId ? token.colorPrimary : 'transparent'
-                      }`,
+                    border: `1px solid ${
+                      schema.id === hoveringSchemaId ? token.colorPrimary : 'transparent'
+                    }`,
                   }}
                   schema={schema}
                   schemas={schemas}
@@ -150,41 +159,41 @@ const SelectableSortableContainer = (
         </div>
         {createPortal(
           <DragOverlay adjustScale>
-            {activeId ? (
-              (() => {
-                const activeSchema = schemas.find((schema) => schema.id === activeId);
-                if (!activeSchema) return null;
-                return (
-                  <>
-                    <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-                      <Item
-                        icon={getPluginIcon(activeId)}
-                        value={activeSchema.name}
-                        required={activeSchema.required}
-                        readOnly={activeSchema.readOnly}
-                        style={{ background: token.colorPrimary }}
-                        dragOverlay
-                      />
-                    </ul>
-                    <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-                      {selectedSchemas
-                        .filter((item) => item.id !== activeId)
-                        .map((item) => (
-                          <Item
-                            icon={getPluginIcon(item)}
-                            key={item.id}
-                            value={item.name}
-                            required={item.required}
-                            readOnly={item.readOnly}
-                            style={{ background: token.colorPrimary }}
-                            dragOverlay
-                          />
-                        ))}
-                    </ul>
-                  </>
-                );
-              })()
-            ) : null}
+            {activeId
+              ? (() => {
+                  const activeSchema = schemas.find((schema) => schema.id === activeId);
+                  if (!activeSchema) return null;
+                  return (
+                    <>
+                      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                        <Item
+                          icon={getPluginIcon(activeId)}
+                          value={activeSchema.name}
+                          required={activeSchema.required}
+                          readOnly={activeSchema.readOnly}
+                          style={{ background: token.colorPrimary }}
+                          dragOverlay
+                        />
+                      </ul>
+                      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                        {selectedSchemas
+                          .filter((item) => item.id !== activeId)
+                          .map((item) => (
+                            <Item
+                              icon={getPluginIcon(item)}
+                              key={item.id}
+                              value={item.name}
+                              required={item.required}
+                              readOnly={item.readOnly}
+                              style={{ background: token.colorPrimary }}
+                              dragOverlay
+                            />
+                          ))}
+                      </ul>
+                    </>
+                  );
+                })()
+              : null}
           </DragOverlay>,
           document.body
         )}

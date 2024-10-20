@@ -16,7 +16,6 @@ const defaultIncludetext = { includetext: DEFAULT_BARCODE_INCLUDETEXT };
 const position = { x: 0, y: 0 };
 const default40x20 = { width: 40, height: 20 };
 
-
 const barcodeDefaults: { defaultSchema: BarcodeSchema }[] = [
   {
     defaultSchema: {

@@ -1,5 +1,15 @@
 import React, { useEffect, useMemo, useContext, ReactNode, useRef } from 'react';
-import {Dict, Mode, ZOOM, UIRenderProps, SchemaForUI, BasePdf, Schema, Plugin, UIOptions} from '@pdfme/common';
+import {
+  Dict,
+  Mode,
+  ZOOM,
+  UIRenderProps,
+  SchemaForUI,
+  BasePdf,
+  Schema,
+  Plugin,
+  UIOptions,
+} from '@pdfme/common';
 import { theme as antdTheme } from 'antd';
 import { SELECTABLE_CLASSNAME } from '../constants';
 import { PluginsRegistry, OptionsContext, I18nContext } from '../contexts';
@@ -18,15 +28,22 @@ type RendererProps = Omit<
 };
 
 type ReRenderCheckProps = {
-  plugin: Plugin<any>,
-  value: string,
-  mode: Mode,
-  scale: number,
-  schema: SchemaForUI,
-  options: UIOptions,
-}
+  plugin: Plugin<any>;
+  value: string;
+  mode: Mode;
+  scale: number;
+  schema: SchemaForUI;
+  options: UIOptions;
+};
 
-const useRerenderDependencies = ({ plugin, value, mode, scale, schema, options }: ReRenderCheckProps) => {
+const useRerenderDependencies = ({
+  plugin,
+  value,
+  mode,
+  scale,
+  schema,
+  options,
+}: ReRenderCheckProps) => {
   const dependencies = useMemo(() => {
     if (plugin.uninterruptedEditMode && mode === 'designer') {
       return [mode];
@@ -62,16 +79,20 @@ const Wrapper = ({
       outline,
     }}
   >
-    {schema.required &&
-      <span style={{
-        color: 'red',
-        position: 'absolute',
-        top: -12,
-        left: -12,
-        fontSize: 18,
-        fontWeight: 700,
-      }}>*</span>
-    }
+    {schema.required && (
+      <span
+        style={{
+          color: 'red',
+          position: 'absolute',
+          top: -12,
+          left: -12,
+          fontSize: 18,
+          fontWeight: 700,
+        }}
+      >
+        *
+      </span>
+    )}
     {children}
   </div>
 );
@@ -97,7 +118,14 @@ Check this document: https://pdfme.com/docs/custom-schemas`);
     return <></>;
   }
 
-  const reRenderDependencies = useRerenderDependencies({plugin, value, mode, scale, schema, options});
+  const reRenderDependencies = useRerenderDependencies({
+    plugin,
+    value,
+    mode,
+    scale,
+    schema,
+    options,
+  });
 
   useEffect(() => {
     if (ref.current && schema.type) {

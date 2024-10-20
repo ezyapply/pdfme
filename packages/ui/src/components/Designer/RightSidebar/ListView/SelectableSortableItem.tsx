@@ -5,7 +5,7 @@ import { PluginsRegistry, I18nContext } from '../../../../contexts';
 import Item from './Item';
 import { useMountStatus } from '../../../../hooks';
 import { theme } from 'antd';
-import PluginIcon from "../../PluginIcon";
+import PluginIcon from '../../PluginIcon';
 
 interface Props {
   isSelected: boolean;
@@ -72,7 +72,11 @@ const SelectableSortableItem = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={() => onEdit(schema.id)}
-      icon={thisPlugin && <PluginIcon plugin={thisPlugin} label={pluginLabel} size={20} styles={iconStyles}/>}
+      icon={
+        thisPlugin && (
+          <PluginIcon plugin={thisPlugin} label={pluginLabel} size={20} styles={iconStyles} />
+        )
+      }
       value={schema.name}
       status={status}
       title={title}

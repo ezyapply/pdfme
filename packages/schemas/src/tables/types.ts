@@ -1,5 +1,6 @@
 import type { ALIGNMENT, VERTICAL_ALIGNMENT } from '../text/types';
-import type { Schema } from '@pdfme/common';
+import type { PDFRenderProps, Schema, UIRenderProps } from '@pdfme/common';
+import { Table } from './classes';
 
 export type Spacing = { top: number; right: number; bottom: number; left: number };
 type BorderInsets = Spacing;
@@ -31,7 +32,10 @@ export interface TableSchema extends Schema {
     borderWidth: number;
   };
   headStyles: CellStyle;
-  bodyStyles: CellStyle & { alternateBackgroundColor: string };
+  bodyStyles: CellStyle & {
+    alternateBackgroundColor: string;
+    alternateFontName?: string | undefined;
+  };
   columnStyles: {
     alignment?: { [colIndex: number]: ALIGNMENT };
   };

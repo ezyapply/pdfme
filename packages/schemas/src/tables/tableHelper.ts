@@ -195,7 +195,10 @@ function getTableOptions(schema: TableSchema, body: string[][]): UserOptions {
     tableLineWidth: schema.tableStyles.borderWidth,
     headStyles: mapCellStyle(schema.headStyles),
     bodyStyles: mapCellStyle(schema.bodyStyles),
-    alternateRowStyles: { backgroundColor: schema.bodyStyles.alternateBackgroundColor },
+    alternateRowStyles: {
+      backgroundColor: schema.bodyStyles.alternateBackgroundColor,
+      fontName: schema.bodyStyles.alternateFontName || schema.bodyStyles.fontName,
+    },
     columnStyles,
     margin: { top: 0, right: 0, left: schema.position.x, bottom: 0 },
   };
@@ -264,6 +267,10 @@ export function createSingleTable(body: string[][], args: CreateTableArgs) {
     const alternateBackgroundColor = schema.bodyStyles.alternateBackgroundColor;
     schema.bodyStyles.alternateBackgroundColor = schema.bodyStyles.backgroundColor;
     schema.bodyStyles.backgroundColor = alternateBackgroundColor;
+
+    const alternateFontName = schema.bodyStyles.alternateFontName;
+    schema.bodyStyles.alternateFontName = schema.bodyStyles.fontName;
+    schema.bodyStyles.fontName = alternateFontName;
   }
   schema.showHead = schema.showHead === false ? false : !schema.__isSplit;
 

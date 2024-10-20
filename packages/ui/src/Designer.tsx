@@ -47,9 +47,9 @@ class Designer extends BaseUIClass {
   public onChangeTemplate(cb: (template: Template) => void) {
     this.onChangeTemplateCallback = cb;
   }
-  
+
   public getPageCursor() {
-    return this.pageCursor
+    return this.pageCursor;
   }
 
   protected render() {
@@ -78,7 +78,7 @@ class Designer extends BaseUIClass {
             }
           }}
           onPageCursorChange={(newPageCursor: number) => {
-            this.pageCursor = newPageCursor
+            this.pageCursor = newPageCursor;
           }}
           size={this.size}
         />

@@ -1,6 +1,6 @@
-import type { UIRenderProps, Mode } from '@pdfme/common';
-import type { TableSchema, CellStyle, Styles } from './types.js';
+import type { Mode, UIRenderProps } from '@pdfme/common';
 import { px2mm } from '@pdfme/common';
+import { CellStyle, Styles, TableSchema } from './types.js';
 import { createSingleTable } from './tableHelper.js';
 import { getBody, getBodyWithRange } from './helper.js';
 import cell from './cell.js';
@@ -431,5 +431,5 @@ export const uiRender = async (arg: UIRenderProps<TableSchema>) => {
   if (schema.height !== tableHeight && onChange) {
     onChange({ key: 'height', value: tableHeight });
   }
-  return offsetY
+  return table;
 };

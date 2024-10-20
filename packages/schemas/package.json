@@ -1,6 +1,6 @@
 {
   "name": "@pdfme/schemas",
-  "version": "0.0.0",
+  "version": "5.1.2",
   "sideEffects": false,
   "author": "hand-dot",
   "license": "MIT",
@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@pdfme/pdf-lib": "^1.18.3",
+    "@pdfme/schemas": "file:",
     "bwip-js": "^4.1.1",
     "date-fns": "^4.1.0",
     "fast-xml-parser": "^4.3.2",

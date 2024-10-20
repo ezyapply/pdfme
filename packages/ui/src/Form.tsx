@@ -46,8 +46,6 @@ class Form extends PreviewUI {
     });
   }
 
-
-
   protected render() {
     if (!this.domContainer) throw Error(DESTROYED_ERR_MSG);
     ReactDOM.render(
