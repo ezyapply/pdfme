@@ -3,12 +3,12 @@ import {cloneDeep} from '@pdfme/common';
 import {TableSchema} from '../tables/types';
 import {ALIGNMENT} from '../text';
 
-export function groupElements(arr: string[], groupSize: number, bulletSymbol: string): string[][] {
+export function groupElements(arr: string[], groupSize: number): string[][] {
     const cloned: string[] = [...arr]
     const result: string[][] = [];
     //prefill with empty
     for (let j = 0; j < cloned.length % groupSize; j++) {
-        cloned.push(j % 2 == 0 ? bulletSymbol : "");
+        cloned.push("");
     }
     for (let i = 0; i < cloned.length; i += groupSize) {
         result.push(cloned.slice(i, i + groupSize));
@@ -25,8 +25,7 @@ export const getBody = (
         const parsed: string[][] = JSON.parse(value || '[]') as string[][];
         return groupElements(
             parsed.flat().flatMap((s) => [bulletSymbol, s]),
-            groupSize,
-            bulletSymbol
+            groupSize
         );
     } else {
         return value || [];

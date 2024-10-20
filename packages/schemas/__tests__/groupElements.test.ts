@@ -9,10 +9,10 @@ describe('groupElements', () => {
             '*', 'date', '*', 'elderberry'];
         const groupSize = 6;
         const bulletSymbol = '*';
-        const result = groupElements(arr, groupSize, bulletSymbol);
+        const result = groupElements(arr, groupSize);
         expect(result)
             .toEqual([['*', 'apple', '*', 'banana', '*', 'cherry'],
-                ['*', 'date', '*', 'elderberry', '*', '']]);
+                ['*', 'date', '*', 'elderberry', '', '']]);
     });
 
     // Groups elements into subarrays of specified size
@@ -20,8 +20,8 @@ describe('groupElements', () => {
         const arr = ['a', 'b', 'c', 'd', 'e'];
         const groupSize = 2;
         const bulletSymbol = '*';
-        const result = groupElements(arr, groupSize, bulletSymbol);
-        expect(result).toEqual([['a', 'b'], ['c', 'd'], ['e', '*']]);
+        const result = groupElements(arr, groupSize);
+        expect(result).toEqual([['a', 'b'], ['c', 'd'], ['e', '']]);
     });
 
     // Handles empty input array
@@ -29,7 +29,7 @@ describe('groupElements', () => {
         const arr: string[] = [];
         const groupSize = 3;
         const bulletSymbol = '*';
-        const result = groupElements(arr, groupSize, bulletSymbol);
+        const result = groupElements(arr, groupSize);
         expect(result).toEqual([]);
     });
 
@@ -38,7 +38,7 @@ describe('groupElements', () => {
         const arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
         const groupSize = 2;
         const bulletSymbol = '*';
-        const result = groupElements(arr, groupSize, bulletSymbol);
+        const result = groupElements(arr, groupSize);
         expect(result).toEqual([['a', 'b'], ['c', 'd'], ['e', 'f'], ['g', 'h']]);
     });
 
@@ -47,8 +47,8 @@ describe('groupElements', () => {
         const arr = ['apple', 'banana', 'cherry', 'date', 'elderberry'];
         const groupSize = 3;
         const bulletSymbol = '-';
-        const result = groupElements(arr, groupSize, bulletSymbol);
-        expect(result).toEqual([['apple', 'banana', 'cherry'], ['date', 'elderberry', '-']]);
+        const result = groupElements(arr, groupSize);
+        expect(result).toEqual([['apple', 'banana', 'cherry'], ['date', 'elderberry', '']]);
     });
 
     // Processes array with length not divisible by group size
@@ -56,7 +56,7 @@ describe('groupElements', () => {
         const arr = ['a', 'b', 'c', 'd', 'e'];
         const groupSize = 2;
         const bulletSymbol = '*';
-        const result = groupElements(arr, groupSize, bulletSymbol);
-        expect(result).toEqual([['a', 'b'], ['c', 'd'], ['e', '*']]);
+        const result = groupElements(arr, groupSize);
+        expect(result).toEqual([['a', 'b'], ['c', 'd'], ['e', '']]);
     });
 });
