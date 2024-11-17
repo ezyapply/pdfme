@@ -59,6 +59,7 @@ export abstract class BaseUIClass {
     };
     this.resizeObserver.observe(this.domContainer);
 
+
     const { lang, font } = options;
     if (lang) {
       this.lang = lang;
@@ -122,6 +123,18 @@ export abstract class BaseUIClass {
 
     this.resizeObserver.unobserve(this.domContainer);
     this.domContainer = null;
+  }
+
+  public unobserve(){
+    if(this.domContainer){
+      this.resizeObserver.unobserve(this.domContainer);
+    }
+  }
+
+  public observe(){
+    if(this.domContainer){
+      this.resizeObserver.observe(this.domContainer);
+    }
   }
 
   protected abstract render(): void;

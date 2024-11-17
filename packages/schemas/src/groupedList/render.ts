@@ -62,7 +62,7 @@ export const pdfRender = async (arg: PDFRenderProps<GroupedListSchema>) => {
 
 async function getHeight(table: Table): Promise<number> {
   return table
-    .allRows()
+    .body
     .map((row) => row.height)
     .reduce((acc, height) => acc + height, 0);
 }

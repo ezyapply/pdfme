@@ -10,4 +10,4 @@ export const PAGE_GAP = 10;
 
 export const RIGHT_SIDEBAR_WIDTH = 400;
 
-export const BACKGROUND_COLOR = 'rgb(74, 74, 74)';
+export const BACKGROUND_COLOR = 'rgb(250, 250, 250)';

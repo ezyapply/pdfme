@@ -15,5 +15,6 @@ export async function dynamicHeights(
   const schema = args.schema as ColumnListSchema;
   const { body, tableSchema } = groupBody({ schema, value });
   const table = await createSingleTable(body, { ...args, schema: tableSchema });
-  return table.allRows().map((row) => row.height);
+  //the whole system is fundamentally build on having a header
+  return [0].concat(table.body.map((row) => row.height));
 }
