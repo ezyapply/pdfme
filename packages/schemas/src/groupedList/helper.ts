@@ -46,7 +46,6 @@ export const getBodyWithRange = (
         newGroup.items.push(item.row);
       }
     });
-    newBody.push(newGroup);
   });
 
   return newBody;
